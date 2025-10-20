@@ -1,61 +1,96 @@
-# RAG LLM
+# RAG Chatbot dengan LangChain, Groq & Chroma
 
-<a target="_blank" href="https://cookiecutter-data-science.drivendata.org/">
-    <img src="https://img.shields.io/badge/CCDS-Project%20template-328F97?logo=cookiecutter" />
-</a>
+Chatbot berbasis Retrieval-Augmented Generation (RAG) yang menggunakan:
+- **LangChain**: Framework untuk aplikasi LLM
+- **Groq**: Inference engine super cepat (GRATIS)
+- **ChromaDB**: Vector database open-source
+- **HuggingFace**: Embeddings model (gratis & local)
 
-Proyek ini bertujuan mengembangkan chatbot edukasi berbasis LLM dengan pendekatan Retrieval-Augmented Generation (RAG). Chatbot dirancang untuk membantu dosen maupun siswa dalam proses pembelajaran dengan cara menjawab pertanyaan secara kontekstual berdasarkan modul ajar yang diunggah dalam bentuk PDF. Sistem ini memadukan kemampuan LLM dalam memahami bahasa alami dengan mekanisme pencarian dokumen untuk memastikan jawaban yang diberikan akurat, relevan, dan sesuai dengan materi pembelajaran.
+## 🚀 Cara Memulai
 
-## Project Organization
+### 1. Setup Environment
+```bash
+# Clone atau buat folder project
+mkdir rag-chatbot
+cd rag-chatbot
 
-```
-├── LICENSE            <- Open-source license if one is chosen
-├── Makefile           <- Makefile with convenience commands like `make data` or `make train`
-├── README.md          <- The top-level README for developers using this project.
-├── data
-│   ├── external       <- Data from third party sources.
-│   ├── interim        <- Intermediate data that has been transformed.
-│   ├── processed      <- The final, canonical data sets for modeling.
-│   └── raw            <- The original, immutable data dump.
-│
-├── docs               <- A default mkdocs project; see www.mkdocs.org for details
-│
-├── models             <- Trained and serialized models, model predictions, or model summaries
-│
-├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
-│                         the creator's initials, and a short `-` delimited description, e.g.
-│                         `1.0-jqp-initial-data-exploration`.
-│
-├── pyproject.toml     <- Project configuration file with package metadata for 
-│                         rag_llm and configuration for tools like black
-│
-├── references         <- Data dictionaries, manuals, and all other explanatory materials.
-│
-├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
-│   └── figures        <- Generated graphics and figures to be used in reporting
-│
-├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
-│                         generated with `pip freeze > requirements.txt`
-│
-├── setup.cfg          <- Configuration file for flake8
-│
-└── rag_llm   <- Source code for use in this project.
-    │
-    ├── __init__.py             <- Makes rag_llm a Python module
-    │
-    ├── config.py               <- Store useful variables and configuration
-    │
-    ├── dataset.py              <- Scripts to download or generate data
-    │
-    ├── features.py             <- Code to create features for modeling
-    │
-    ├── modeling                
-    │   ├── __init__.py 
-    │   ├── predict.py          <- Code to run model inference with trained models          
-    │   └── train.py            <- Code to train models
-    │
-    └── plots.py                <- Code to create visualizations
+# Buat virtual environment
+python -m venv venv
+source venv/bin/activate  # Linux/Mac
+# atau
+venv\Scripts\activate  # Windows
+
+# Install dependencies
+pip install -r requirements.txt
 ```
 
---------
+### 2. Dapatkan API Key Groq (GRATIS)
 
+1. Kunjungi: https://console.groq.com
+2. Daftar akun gratis
+3. Buka menu "API Keys"
+4. Buat API key baru
+5. Copy API key ke file `.env`
+
+### 3. Jalankan Notebook
+```bash
+# Install Jupyter jika belum
+pip install jupyter
+
+# Jalankan Jupyter
+jupyter notebook notebooks/rag_chatbot.ipynb
+```
+
+### 4. Tambahkan Dokumen
+
+- Letakkan file PDF atau TXT di folder `data/documents/`
+- Update kode di notebook untuk load dokumen Anda
+
+## 📚 Fitur
+
+- ✅ Load dokumen PDF dan TXT
+- ✅ Chunking dokumen otomatis
+- ✅ Embeddings menggunakan model lokal (gratis)
+- ✅ Vector store persistent dengan ChromaDB
+- ✅ Query dengan context dari dokumen
+- ✅ Source tracking (tahu jawaban dari dokumen mana)
+- ✅ Interactive chat mode
+
+## 💡 Tips Penggunaan
+
+1. **Model Groq yang tersedia (gratis)**:
+   - `llama-3.1-8b-instant` (paling cepat)
+   - `llama-3.1-70b-versatile` (lebih pintar)
+   - `mixtral-8x7b-32768` (context window besar)
+
+2. **Optimize chunking**:
+   - Sesuaikan `chunk_size` dan `chunk_overlap`
+   - Dokumen teknis: chunk lebih kecil (300-500)
+   - Dokumen naratif: chunk lebih besar (1000-1500)
+
+3. **Improve retrieval**:
+   - Ubah `k` di `search_kwargs` (jumlah dokumen yang diambil)
+   - Coba similarity score threshold
+
+## 🔧 Troubleshooting
+
+**Error: Groq API Key invalid**
+- Pastikan API key benar di file `.env`
+- Cek quota di console Groq
+
+**Error: ChromaDB**
+- Hapus folder `chroma_db/` dan run ulang
+
+**Model embedding slow**
+- Model di-download pertama kali (±400MB)
+- Setelah itu akan cached secara lokal
+
+## 📖 Referensi
+
+- [LangChain Docs](https://python.langchain.com/)
+- [Groq Console](https://console.groq.com/)
+- [ChromaDB Docs](https://docs.trychroma.com/)
+
+## 📝 Lisensi
+
+MIT License - Bebas digunakan untuk project pribadi maupun komersial

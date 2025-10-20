@@ -1,9 +1,8 @@
-black
-flake8
-isort
-loguru
-pip
+langchain
+langchain-community
+langchain-groq
+chromadb
+pypdf
+sentence-transformers
 python-dotenv
-tqdm
-typer
--e .
+huggingface-hub
