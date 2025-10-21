@@ -6,3 +6,4 @@ pypdf
 sentence-transformers
 python-dotenv
 huggingface-hub
+streamlit
