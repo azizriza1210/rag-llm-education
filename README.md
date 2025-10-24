@@ -1,36 +1,33 @@
-# RAG Chatbot dengan LangChain, Groq & Chroma
+# Chatbot Education
 
-Chatbot berbasis Retrieval-Augmented Generation (RAG) yang menggunakan:
+**Problem**: Saat ini banyak mahasiswa yang memakan banyak waktu bahkan malas membaca dan mempelajari modul ajar dengan halaman yang banyak.
+
+**Solusi**: Oleh karena itu, solusi yang dikembangkan berupa chatbot yang mampu menjwab pertanyaan apapun seputar modul ajar yang dapat membantu mahasiswa dalam proses belajar.
+
+Chatbot dikembangkan berbasis **Retrieval-Augmented Generation (RAG)** yang menggunakan:
 - **LangChain**: Framework untuk aplikasi LLM
-- **Groq**: Inference engine super cepat (GRATIS)
+- **Groq**: API LLM
 - **ChromaDB**: Vector database open-source
-- **HuggingFace**: Embeddings model (gratis & local)
+- **HuggingFace**: Embeddings model (Free & local)
 
-## 🚀 Cara Memulai
+## Cara Memulai
 
 ### 1. Setup Environment
 ```bash
-# Clone atau buat folder project
-mkdir rag-chatbot
-cd rag-chatbot
-
-# Buat virtual environment
-python -m venv venv
-source venv/bin/activate  # Linux/Mac
-# atau
-venv\Scripts\activate  # Windows
-
 # Install dependencies
 pip install -r requirements.txt
 ```
 
-### 2. Dapatkan API Key Groq (GRATIS)
+### 2. Dapatkan API Key Groq (Free)
 
 1. Kunjungi: https://console.groq.com
-2. Daftar akun gratis
+2. Daftar & login akun
 3. Buka menu "API Keys"
 4. Buat API key baru
-5. Copy API key ke file `.env`
+5. Copy API key ke file `.env` dan simpan pada variabel berikut
+```bash
+GROQ_API_KEY=API_KEY
+```
 
 ### 3. Jalankan Notebook
 ```bash

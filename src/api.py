@@ -1,11 +1,13 @@
 from fastapi import FastAPI, File, UploadFile, HTTPException
 from pydantic import BaseModel
-from src.store_data_to_chroma import pdf_chunking_hierarchical
+from src.utils.upload_modules_utils import pdf_chunking_and_store
+from src.utils.model_utils import llm, embeddings
 import os
-from dotenv import load_dotenv
-from langchain_groq import ChatGroq
 import colorlog
 from pathlib import Path
+from config import CHROMA_PERSIST_DIRECTORY, TEMP_DIR, COLLECTION_NAME, GROQ_API_KEY
+import shutil
+from src.utils.chatbot_utils import ask_question
 
 # Setup colored logging
 handler = colorlog.StreamHandler()
@@ -27,24 +29,11 @@ logger.setLevel(colorlog.INFO)
 # Inisialisasi FastAPI
 app = FastAPI(title="Simple API", version="1.0.0")
 
-load_dotenv()
+# llm = get_llm(GROQ_API_KEY)
+# logger.info("LLM initialized!")
 
-GROQ_API_KEY = os.getenv("GROQ_API_KEY")
-CHROMA_PERSIST_DIRECTORY = "../chroma_db"
-COLLECTION_NAME = "machine_learning_modules"
-TEMP_DIR = Path("data/documents")
-TEMP_DIR.mkdir(exist_ok=True)
-
-llm = ChatGroq(
-    groq_api_key=GROQ_API_KEY,
-    model_name="openai/gpt-oss-120b",
-    temperature=0.2
-)
-logger.info("LLM initialized!")
-
-# Model untuk request POST
-# class NameRequest(BaseModel):
-#     nama: str
+# embeddings = get_embeddings()
+# logger.info("Embeddings initialized!")
 
 # Endpoint GET
 @app.get("/")
@@ -54,40 +43,40 @@ def root():
 # Endpoint POST
 @app.post("/upload-module")
 async def upload_module(file: UploadFile = File(...)):
-    file_path = None
+    module_path = None
     
     try:
         # Simpan file ke folder temp
-        file_path = TEMP_DIR / file.filename
+        module_path = TEMP_DIR / file.filename
         logger.debug(f"Menyimpan file: {file.filename}")
         
-        with open(file_path, "wb") as f:
-            content = await file.read()
-            f.write(content)
+        with open(module_path, "wb") as buffer:
+            shutil.copyfileobj(file.file, buffer)
+        logger.info(f"File tersimpan di: {module_path}")
+
+        hasil = pdf_chunking_and_store(module_path, embeddings, CHROMA_PERSIST_DIRECTORY, COLLECTION_NAME)
         
-        logger.debug(f"File tersimpan: {file_path}")
-        
-        # PROSES FILE DI SINI
-        file_size = os.path.getsize(file_path)
-        logger.debug(f"Memproses file: {file_size} bytes")
-        
-        # Your processing logic here...
-        result = {
-            "filename": file.filename,
-            "size": file_size,
-            "message": "File berhasil diproses"
-        }
-        
-        return result
+        if module_path and os.path.exists(module_path):
+            os.remove(module_path)
+            logger.info(f"File dihapus: {module_path}")
+
+        return hasil
         
     except Exception as e:
         logger.error(f"Error: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
-        
-    # finally:
-    #     # Hapus file setelah selesai
-    #     if file_path and os.path.exists(file_path):
-    #         os.remove(file_path)
-    #         logger.info(f"File dihapus: {file_path}")
+    
+class QuestionRequest(BaseModel):
+    question: str
 
-# Jalankan dengan: uvicorn main:app --reload
+@app.post("/chatbot")
+async def upload_module(request: QuestionRequest):
+    try:
+        answer, sources = ask_question(request.question)
+        return {
+            "answer": answer,
+            "sources": sources
+        }
+    except Exception as e:
+        logger.error(f"Error: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
