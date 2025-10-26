@@ -29,12 +29,6 @@ logger.setLevel(colorlog.INFO)
 # Inisialisasi FastAPI
 app = FastAPI(title="Simple API", version="1.0.0")
 
-# llm = get_llm(GROQ_API_KEY)
-# logger.info("LLM initialized!")
-
-# embeddings = get_embeddings()
-# logger.info("Embeddings initialized!")
-
 # Endpoint GET
 @app.get("/")
 def root():
@@ -54,13 +48,17 @@ async def upload_module(file: UploadFile = File(...)):
             shutil.copyfileobj(file.file, buffer)
         logger.info(f"File tersimpan di: {module_path}")
 
-        hasil = pdf_chunking_and_store(module_path, embeddings, CHROMA_PERSIST_DIRECTORY, COLLECTION_NAME)
+        # Konversi path jadi format Unix ("/")
+        module_path_str = module_path.as_posix()
+        logger.info(f"Path normalisasi: {module_path_str}")
+
+        hasil = pdf_chunking_and_store(module_path_str, embeddings, CHROMA_PERSIST_DIRECTORY, COLLECTION_NAME)
         
         if module_path and os.path.exists(module_path):
             os.remove(module_path)
             logger.info(f"File dihapus: {module_path}")
 
-        return hasil
+        return {"message":hasil}
         
     except Exception as e:
         logger.error(f"Error: {str(e)}")
@@ -70,7 +68,7 @@ class QuestionRequest(BaseModel):
     question: str
 
 @app.post("/chatbot")
-async def upload_module(request: QuestionRequest):
+async def chatbot(request: QuestionRequest):
     try:
         answer, sources = ask_question(request.question)
         return {

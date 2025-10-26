@@ -3,9 +3,7 @@ import os
 from langchain_text_splitters import MarkdownHeaderTextSplitter, RecursiveCharacterTextSplitter
 from langchain.schema import Document
 from langchain_community.vectorstores import Chroma
-
-CHROMA_PERSIST_DIRECTORY = "../chroma_db"
-COLLECTION_NAME = "machine_learning_modules"
+from config import CHROMA_PERSIST_DIRECTORY, COLLECTION_NAME
 
 def pdf_chunking_hierarchical(pdf_path: str):
     file_name = os.path.basename(pdf_path)
@@ -55,7 +53,7 @@ def store_to_chromadb(hierarchical_chunks, embeddings, CHROMA_PERSIST_DIRECTORY,
         # Load existing vector store atau buat baru
         try:
             vector_store = Chroma(
-                persist_directory=CHROMA_PERSIST_DIRECTORY,
+                persist_directory=r"D:\Portfolio\rag-llm-education\chroma_db",
                 embedding_function=embeddings,
                 collection_name=COLLECTION_NAME
             )
@@ -96,7 +94,7 @@ def store_to_chromadb(hierarchical_chunks, embeddings, CHROMA_PERSIST_DIRECTORY,
             vector_store = Chroma.from_documents(
                 documents=hierarchical_chunks,
                 embedding=embeddings,
-                persist_directory=CHROMA_PERSIST_DIRECTORY,
+                persist_directory=r"D:\Portfolio\rag-llm-education\chroma_db",
                 collection_name=COLLECTION_NAME
             )
         else:
@@ -144,7 +142,8 @@ def store_to_chromadb(hierarchical_chunks, embeddings, CHROMA_PERSIST_DIRECTORY,
 def pdf_chunking_and_store(module_path: str, embeddings, CHROMA_PERSIST_DIRECTORY, COLLECTION_NAME):
     try: 
         hierarchical_chunks = pdf_chunking_hierarchical(module_path)
-        store_to_chromadb(hierarchical_chunks, embeddings, CHROMA_PERSIST_DIRECTORY, COLLECTION_NAME)
+        hasil = store_to_chromadb(hierarchical_chunks, embeddings, CHROMA_PERSIST_DIRECTORY, COLLECTION_NAME)
+        print(hasil)
         return "Module uploaded and processed successfully."
     except Exception as e:
         return f"Error during chunking and storing: {e}"
