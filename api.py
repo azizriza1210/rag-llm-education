@@ -32,8 +32,8 @@ app = FastAPI(title="Simple API", version="1.0.0")
 
 # Endpoint GET
 @app.get("/")
-def root():
-    return {"message": "API berhasil dijalankan"}
+async def root():
+    return {"status": "healthy"}
 
 # Endpoint POST
 @app.post("/upload-module")
@@ -82,5 +82,6 @@ async def chatbot(request: QuestionRequest):
     
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 10000))
+    import uvicorn
+    port = int(os.environ.get("PORT", 8000))
     uvicorn.run(app, host="0.0.0.0", port=port)
