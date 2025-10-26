@@ -14,3 +14,4 @@ ml-dtypes
 fastapi
 uvicorn
 pymupdf4llm
+colorlog
