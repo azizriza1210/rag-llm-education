@@ -41,7 +41,7 @@ async def upload_module(file: UploadFile = File(...)):
     
     try:
         # Simpan file ke folder temp
-        module_path = TEMP_DIR / file.filename
+        module_path = TEMP_DIR + "/" +file.filename
         logger.debug(f"Menyimpan file: {file.filename}")
         
         with open(module_path, "wb") as buffer:
@@ -49,7 +49,7 @@ async def upload_module(file: UploadFile = File(...)):
         logger.info(f"File tersimpan di: {module_path}")
 
         # Konversi path jadi format Unix ("/")
-        module_path_str = module_path.as_posix()
+        module_path_str = module_path
         logger.info(f"Path normalisasi: {module_path_str}")
 
         hasil = pdf_chunking_and_store(module_path_str, embeddings, CHROMA_PERSIST_DIRECTORY, COLLECTION_NAME)

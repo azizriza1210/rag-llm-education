@@ -53,7 +53,7 @@ def store_to_chromadb(hierarchical_chunks, embeddings, CHROMA_PERSIST_DIRECTORY,
         # Load existing vector store atau buat baru
         try:
             vector_store = Chroma(
-                persist_directory=r"D:\Portfolio\rag-llm-education\chroma_db",
+                persist_directory=CHROMA_PERSIST_DIRECTORY,
                 embedding_function=embeddings,
                 collection_name=COLLECTION_NAME
             )
@@ -94,7 +94,7 @@ def store_to_chromadb(hierarchical_chunks, embeddings, CHROMA_PERSIST_DIRECTORY,
             vector_store = Chroma.from_documents(
                 documents=hierarchical_chunks,
                 embedding=embeddings,
-                persist_directory=r"D:\Portfolio\rag-llm-education\chroma_db",
+                persist_directory=CHROMA_PERSIST_DIRECTORY,
                 collection_name=COLLECTION_NAME
             )
         else:
