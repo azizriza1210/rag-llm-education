@@ -13,3 +13,4 @@ torch
 ml-dtypes
 fastapi
 uvicorn
+pymupdf4llm
