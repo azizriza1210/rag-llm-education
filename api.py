@@ -8,6 +8,7 @@ from pathlib import Path
 from config import CHROMA_PERSIST_DIRECTORY, TEMP_DIR, COLLECTION_NAME, GROQ_API_KEY
 import shutil
 from src.utils.chatbot_utils import ask_question
+import uvicorn
 
 # Setup colored logging
 handler = colorlog.StreamHandler()
@@ -78,3 +79,8 @@ async def chatbot(request: QuestionRequest):
     except Exception as e:
         logger.error(f"Error: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
+    
+
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 10000))
+    uvicorn.run(app, host="0.0.0.0", port=port)
