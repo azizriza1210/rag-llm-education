@@ -16,3 +16,4 @@ uvicorn
 pymupdf4llm
 colorlog
 langchain-huggingface
+python-multipart
