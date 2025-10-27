@@ -41,7 +41,7 @@ with st.sidebar:
             with st.spinner("Mengupload dan memproses PDF..."):
                 try:
                     # API endpoint untuk upload
-                    upload_url = "http://127.0.0.1:8000/upload-module"
+                    upload_url = "https://rag-llm-education.onrender.com/upload-module"
                     
                     # Siapkan file untuk dikirim dalam request
                     files = {'file': (uploaded_file.name, uploaded_file.getvalue(), 'application/pdf')}
@@ -96,7 +96,7 @@ if prompt := st.chat_input("Tanyakan sesuatu tentang PDF..."):
         with st.spinner("Bot sedang berpikir..."):
             try:
                 # API endpoint untuk chatbot
-                chat_url = "http://127.0.0.1:8000/chatbot"
+                chat_url = "https://rag-llm-education.onrender.com/chatbot"
                 
                 # Payload untuk request
                 payload = {"question": prompt}
