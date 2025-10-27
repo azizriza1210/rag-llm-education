@@ -144,7 +144,7 @@ context:
 - [Groq Console](https://console.groq.com/)
 - [ChromaDB Documentation](https://docs.trychroma.com/)
 - [Exploring Prompt Engineering Practices](https://arxiv.org/abs/2403.08950)
-- ["Does Prompt Formatting Have Any Impact on LLM Performance?"](https://arxiv.org/abs/2411.10541)
+- [Does Prompt Formatting Have Any Impact on LLM Performance?](https://arxiv.org/abs/2411.10541)
 
 ## 👤 Author
 
