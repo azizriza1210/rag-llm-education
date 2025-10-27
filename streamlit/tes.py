@@ -5,22 +5,23 @@ import os
 # --- Custom CSS untuk Dark Mode ---
 st.markdown("""
 <style>
+    /* Tema Warna Umum */
     :root {
         --bg-color: #0E1117;
         --sidebar-bg-color: #262730;
-        --primary-color: #4A90E2;
-        --secondary-color: #F0F2F6;
-        --user-msg-bg: #1E3A5F;
-        --bot-msg-bg: #2B2D42;
-        --source-bg: #1F2937;
+        --primary-color: #4A90E2; /* Biru yang menenangkan */
+        --secondary-color: #F0F2F6; /* Warna teks sekunder */
+        --user-msg-bg: #1E3A5F; /* Biru tua untuk pesan user */
+        --bot-msg-bg: #2B2D42; /* Abu-abu tua untuk pesan bot */
+        --source-bg: #1F2937; /* Latar belakang untuk sumber */
     }
 
-    /* Latar Belakang Utama */
+    /* Gaya Latar Belakang Utama */
     .stApp {
         background-color: var(--bg-color);
     }
 
-    /* Sidebar */
+    /* Gaya Sidebar */
     .css-1d391kg { /* Perhatikan selector ini bisa berubah, gunakan inspect element jika tidak bekerja */
         background-color: var(--sidebar-bg-color);
     }
@@ -31,7 +32,7 @@ st.markdown("""
         padding-bottom: 0.5rem;
     }
 
-    /* Tombol Upload */
+    /* Gaya Tombol Upload */
     .stButton > button {
         background-color: var(--primary-color);
         color: white;
@@ -46,14 +47,14 @@ st.markdown("""
         box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     }
 
-    /* Judul Utama */
+    /* Gaya Judul Utama */
     .stTitle {
         color: var(--secondary-color);
         font-family: 'Monospace', sans-serif;
         text-align: center;
     }
 
-    /* Pesan Chat */
+    /* Gaya Pesan Chat */
     .stChatMessage {
         border-radius: 15px;
         padding: 1rem;
@@ -66,7 +67,7 @@ st.markdown("""
         background-color: var(--bot-msg-bg);
     }
 
-    /* Container untuk Sumber */
+    /* Gaya Container untuk Sumber */
     .sources-container {
         background-color: var(--source-bg);
         border-left: 4px solid var(--primary-color);
@@ -78,7 +79,7 @@ st.markdown("""
         margin: 0;
     }
 
-    /* untuk Empty State */
+    /* Gaya untuk Empty State */
     .empty-state {
         text-align: center;
         padding: 3rem;
@@ -88,7 +89,7 @@ st.markdown("""
         color: var(--primary-color);
     }
 
-    /* Input Chat */
+    /* Gaya Input Chat */
     .stChatInput > div > div > input {
         background-color: #2B2D42;
         color: var(--secondary-color);
@@ -150,7 +151,8 @@ with st.sidebar:
         else:
             st.warning("Silakan pilih file PDF terlebih dahulu.")
 
-st.title("💬 Chatbot Edukasi - Tanyakan Apa Saja Tentang PDF Anda")
+# --- Area Chat Utama ---
+st.title("💬 Tanyakan Apa Saja Tentang PDF Anda")
 
 # Tampilan awal yang lebih menarik jika PDF belum diupload
 if not st.session_state.pdf_uploaded:
@@ -190,8 +192,10 @@ if prompt := st.chat_input("Tanyakan sesuatu tentang PDF..."):
                     answer = data.get("answer", "Maaf, saya tidak bisa menemukan jawaban.")
                     sources = data.get("sources", [])
                     
+                    # Bungkus jawaban dalam div
                     response_html = f"<p>{answer}</p>"
                     
+                    # Bungkus sumber dalam div dengan khusus
                     if sources:
                         sources_html = "<div class='sources-container'><p><strong>Sumber:</strong></p><ul>"
                         for source in sources:
