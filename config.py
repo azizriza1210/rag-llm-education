@@ -51,5 +51,5 @@ print("=" * 60)
 if not GROQ_API_KEY:
     print("⚠️  WARNING: GROQ_API_KEY not set! LLM features will not work.")
 
-if not (COHERE_API_KEY or HUGGINGFACE_API_KEY):
+if not (HUGGINGFACE_API_KEY):
     print("⚠️  WARNING: No embeddings API key set! Please set COHERE_API_KEY or HUGGINGFACE_API_KEY.")
