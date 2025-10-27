@@ -79,9 +79,9 @@ display_chat_history()
 # Input untuk pertanyaan user di bagian bawah
 if prompt := st.chat_input("Tanyakan sesuatu tentang PDF..."):
     # Pastikan PDF sudah diupload sebelum mengajukan pertanyaan
-    if not st.session_state.pdf_uploaded:
-        st.warning("Anda harus mengupload PDF terlebih dahulu sebelum bertanya.")
-        st.stop()
+    # if not st.session_state.pdf_uploaded:
+    #     st.warning("Anda harus mengupload PDF terlebih dahulu sebelum bertanya.")
+    #     st.stop()
 
     # Tambahkan pertanyaan user ke history dan tampilkan
     st.session_state.chat_history.append({"role": "user", "content": prompt})
