@@ -52,8 +52,8 @@ You can ask questions directly about data science topics.
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/chatbot-education.git
-cd chatbot-education
+git https://github.com/azizriza1210/rag-llm-education.git
+cd rag-llm-education
 
 # Install dependencies
 pip install -r requirements.txt
@@ -104,7 +104,7 @@ streamlit run streamlit/app.py
 
 ## 📝 Prompt Engineering
 
-The chatbot uses carefully engineered prompts based on the paper ["Exploring Prompt Engineering Practices in the Enterprise"](https://arxiv.org/abs/2403.08950):
+The chatbot uses carefully engineered prompts based on the paper ["Exploring Prompt Engineering Practices in the Enterprise"](https://arxiv.org/abs/2403.08950) and ["Does Prompt Formatting Have Any Impact on LLM Performance?"](https://arxiv.org/abs/2411.10541) :
 
 ### System Prompt
 ```
@@ -138,48 +138,19 @@ context:
 | **Slow embedding model** | The model is downloaded on first run (≈400MB) and then cached locally |
 | **No relevant documents found** | Try rephrasing your question or check if the information exists in the uploaded PDF |
 
-## 📊 Performance Metrics
-
-- **Document Processing Speed**: ~2 pages/second
-- **Query Response Time**: <3 seconds (average)
-- **Embedding Model Size**: 400MB (one-time download)
-- **Supported Document Types**: PDF (up to 50MB)
-
-## 🚧 Future Improvements
-
-- [ ] Support for additional document formats (DOCX, TXT)
-- [ ] Multi-language support
-- [ ] Conversation history and context retention
-- [ ] Performance metrics dashboard
-- [ ] Export chat history feature
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
 ## 📖 References
 
 - [LangChain Documentation](https://python.langchain.com/)
 - [Groq Console](https://console.groq.com/)
 - [ChromaDB Documentation](https://docs.trychroma.com/)
-- [Retrieval-Augmented Generation Paper](https://arxiv.org/abs/2005.11401)
 - [Exploring Prompt Engineering Practices](https://arxiv.org/abs/2403.08950)
-
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+- ["Does Prompt Formatting Have Any Impact on LLM Performance?"](https://arxiv.org/abs/2411.10541)
 
 ## 👤 Author
 
 **Your Name**
-- GitHub: [@yourusername](https://github.com/yourusername)
-- LinkedIn: [Your LinkedIn](https://linkedin.com/in/yourprofile)
+- GitHub: [@azizriza1210](https://github.com/azizriza1210)
+- LinkedIn: [Mohammad Aziz Riza](https://www.linkedin.com/in/mohammad-aziz-riza-3a3862258/)
 
 ## 🙏 Acknowledgments
 
