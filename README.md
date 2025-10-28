@@ -7,7 +7,7 @@
 [![RAG](https://img.shields.io/badge/Architecture-RAG-purple?style=for-the-badge)](https://arxiv.org/abs/2005.11401)
 
 <div align="center">
-  <img src="assets/image.png" alt="Chatbot Education Demo" width="800">
+  <img src="assets/rag-llm-demo.gif" alt="Chatbot Education Demo" width="800">
 </div>
 
 ## 🎯 Problem Statement
